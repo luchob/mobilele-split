@@ -1,0 +1,4 @@
+spring.application.name: orders
+
+jwt:
+  secret: N2NuZ0NIM0FZbWpReTJ4Tzc1WHdTRWJNaFBOajdYTUQ=
