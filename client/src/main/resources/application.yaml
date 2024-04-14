@@ -4,3 +4,7 @@ server.port: 9001
 jwt:
   secret: N2NuZ0NIM0FZbWpReTJ4Tzc1WHdTRWJNaFBOajdYTUQ=
   expiration: 60000
+
+logging:
+  level:
+    org.springframework.security: TRACE

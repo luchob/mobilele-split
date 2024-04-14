@@ -4,35 +4,35 @@ import bg.softuni.mobilele.client.model.OrderDTO;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-//@Component
-public class DemoRequest implements CommandLineRunner {
+@Service
+public class OrderService {
 
   private final RestClient restClient;
+  private final Logger LOGGER = LoggerFactory.getLogger(OrderService.class);
 
-  private final Logger LOGGER = LoggerFactory.getLogger(DemoRequest.class);
-
-  public DemoRequest(RestClient restClient) {
+  public OrderService(RestClient restClient) {
     this.restClient = restClient;
   }
 
-  @Override
-  public void run(String... args) {
+  public List<OrderDTO> getAllOrders() {
 
-    List<OrderDTO> orderDTOList = restClient
+    List<OrderDTO> allOrders = restClient
         .get()
         .uri("/all")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .body(new ParameterizedTypeReference<>() {});
 
-    assert orderDTOList != null;
+    assert allOrders != null;
 
-    orderDTOList.forEach(o -> LOGGER.info("Order: {}", o));
+    LOGGER.info("Retrieved {} orders.", allOrders.size());
+
+    return allOrders;
   }
+
 }
