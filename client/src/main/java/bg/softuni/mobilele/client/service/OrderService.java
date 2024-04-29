@@ -2,6 +2,7 @@ package bg.softuni.mobilele.client.service;
 
 import bg.softuni.mobilele.client.model.OrderDTO;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -33,6 +34,17 @@ public class OrderService {
     LOGGER.info("Retrieved {} orders.", allOrders.size());
 
     return allOrders;
+  }
+
+  public Optional<OrderDTO> findOrderById(String orderId) {
+    OrderDTO orderDTO = restClient
+        .get()
+        .uri("/orders/{orderId}", orderId)
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .body(OrderDTO.class);
+
+    return Optional.ofNullable(orderDTO);
   }
 
 }
